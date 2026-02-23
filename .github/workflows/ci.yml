@@ -22,5 +22,10 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      - name: Build and analyze
+        run: ./gradlew build sonarqube --info
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
       - name: Run unit tests
         run: ./gradlew test
