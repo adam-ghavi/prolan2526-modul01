@@ -39,7 +39,7 @@ public class ProductRepositoryTest {
     @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
-        assertTrue(productIterator.hasNext());
+        assertFalse(productIterator.hasNext());
     }
 
     @Test
