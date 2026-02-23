@@ -24,7 +24,7 @@ java {
 sonarqube {
     properties {
         property("sonar.projectKey", "adam-ghavi_prolan2526-modul01")
-        property("sonar.organization", "adam_ghavi")
+        property("sonar.organization", "adam-ghavi")
         property("sonar.host.url", "https://sonarcloud.io")
     }
 }
