@@ -3,6 +3,7 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.5.10"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -17,6 +18,14 @@ val junitJupiterVersion = "5.9.1"
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "adam-ghavi_prolan2526-modul01")
+        property("sonar.organization", "adam-ghavi")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
 
