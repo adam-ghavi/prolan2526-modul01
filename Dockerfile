@@ -1,18 +1,17 @@
 # ---------- Build Stage ----------
-FROM gradle:8.5-jdk21 AS builder
+FROM eclipse-temurin:21-jdk AS builder
 
 WORKDIR /app
 COPY . .
-RUN gradle build -x test
+
+RUN chmod +x gradlew
+RUN ./gradlew build -x test --no-daemon
 
 # ---------- Runtime Stage ----------
 FROM eclipse-temurin:21-jre
 
 WORKDIR /app
-
-# Copy built jar and rename to app.jar
 COPY --from=builder /app/build/libs/*.jar app.jar
 
 EXPOSE 8080
-
 ENTRYPOINT ["sh", "-c", "java -jar app.jar"]
