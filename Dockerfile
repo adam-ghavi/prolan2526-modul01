@@ -1,20 +1,18 @@
-# Use official Java 21 runtime
-FROM eclipse-temurin:21-jdk
+# ---------- Build Stage ----------
+FROM gradle:8.5-jdk21 AS builder
 
-# Set working directory
+WORKDIR /app
+COPY . .
+RUN gradle build -x test
+
+# ---------- Runtime Stage ----------
+FROM eclipse-temurin:21-jre
+
 WORKDIR /app
 
-# Copy Gradle wrapper and project files
-COPY . .
+# Copy built jar and rename to app.jar
+COPY --from=builder /app/build/libs/*.jar app.jar
 
-# Make gradlew executable
-RUN chmod +x gradlew
-
-# Build the application
-RUN ./gradlew build -x test
-
-# Expose port (Render uses 10000 by default, but Spring must use $PORT)
 EXPOSE 8080
 
-# Run the application
-CMD ["sh", "-c", "java -jar build/libs/prolan2526-modul01-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["sh", "-c", "java -jar app.jar"]
