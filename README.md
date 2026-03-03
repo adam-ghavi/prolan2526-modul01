@@ -13,3 +13,13 @@ Then I proceeded to find out what it was and why it was important. Turns out ver
 
 ## Reflection 2
 The current workflow verifies that the code behaves as expected via unit and functional tests, then checks for vulnerabilities and codesmells using SonarQube, then proceeds to build and deploy using Render. All of this happens automatically and is triggered with every merge to the main branch. By definition, CI/CD has been implemented, with the tests and code/security review being part of CI and the automated Render deployment constituting CD. Tests and code review ensure that new code is up to standard and doesn't break. Automated deployment ensures that the latest codebase, which has been vetted and verified, is automatically accessible to users.
+
+# Module 3
+## Reflection 1
+Given that the project was fairly simple in nature, most of the SOLID principles were implemented to begin with. That is, except for the Dependency Inversion principle. The CarController class inherited the ProductController for no good reason, and as such it violated DI by depending on a concrete class. I separated the two into their own respective classes.
+
+## Reflection 2
+The obvious benefit to applying SOLID here is that the ProductController class became much cleaner. I was having a somewhat difficult time reading through that part of the sourcecode beforehand as there were two similar classes that had similar functionalities. Having the two in their own separate files really helped in terms of readability.
+
+## Reflection 3
+The disadvantage would just be the opposite. The code, in this case being the controller classes, would be heaped together and they would be more difficult to read through. And in terms of maintainability, changing some things about the ProductController class (the parent) might cause unexpected behaviors to emerge from the CarController class (the child).
