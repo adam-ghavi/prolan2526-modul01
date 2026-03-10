@@ -10,7 +10,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PaymentServiceTest {
+class PaymentServiceImplTest {
     PaymentService paymentService;
     Order order;
     Map<String, String> paymentData;
@@ -84,5 +84,41 @@ class PaymentServiceTest {
 
         assertEquals("REJECTED", payment.getStatus());
         assertEquals("FAILED", order.getStatus());
+    }
+
+    @Test
+    void testBankTransferSuccess() {
+
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "BCA");
+        paymentData.put("referenceCode", "INV-123");
+
+        Payment payment = paymentService.addPayment(order, "BANK_TRANSFER", paymentData);
+
+        assertEquals("PENDING", payment.getStatus());
+    }
+
+    @Test
+    void testBankTransferRejectedIfBankNameEmpty() {
+
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "");
+        paymentData.put("referenceCode", "INV-123");
+
+        Payment payment = paymentService.addPayment(order, "BANK_TRANSFER", paymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
+    }
+
+    @Test
+    void testBankTransferRejectedIfReferenceCodeEmpty() {
+
+        Map<String, String> paymentData = new HashMap<>();
+        paymentData.put("bankName", "BCA");
+        paymentData.put("referenceCode", "");
+
+        Payment payment = paymentService.addPayment(order, "BANK_TRANSFER", paymentData);
+
+        assertEquals("REJECTED", payment.getStatus());
     }
 }
