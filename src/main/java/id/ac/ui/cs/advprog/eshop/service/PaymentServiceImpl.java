@@ -20,15 +20,24 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
         Payment payment = new Payment();
-
         payment.setId(UUID.randomUUID().toString());
         payment.setOrder(order);
         payment.setMethod(method);
         payment.setPaymentData(paymentData);
-        payment.setStatus("PENDING");
 
+        String status = "PENDING";
+
+        if ("BANK_TRANSFER".equals(method)) {
+            String bankName = paymentData.get("bankName");
+            String referenceCode = paymentData.get("referenceCode");
+
+            if (bankName == null || bankName.isEmpty() || referenceCode == null || referenceCode.isEmpty()) {
+                status = "REJECTED";
+            }
+        }
+
+        payment.setStatus(status);
         paymentRepository.save(payment);
-
         return payment;
     }
 
