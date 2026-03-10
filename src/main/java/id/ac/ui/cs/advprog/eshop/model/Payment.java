@@ -7,9 +7,10 @@ import java.util.Map;
 
 @Setter
 @Getter
-class Payment {
+public class Payment {
     String id;
     String method;
     String status;
+    Order order;
     Map<String, String> paymentData;
 }
