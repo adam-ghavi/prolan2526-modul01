@@ -23,3 +23,10 @@ The obvious benefit to applying SOLID here is that the ProductController class b
 
 ## Reflection 3
 The disadvantage would just be the opposite. The code, in this case being the controller classes, would be heaped together and they would be more difficult to read through. And in terms of maintainability, changing some things about the ProductController class (the parent) might cause unexpected behaviors to emerge from the CarController class (the child).
+
+# Module 4
+## Reflection 1
+I feel like the test driven development helped in terms of creating an outline of what features to implement and how they're supposed to behave, and making sure that behavior is maintained in every iteration of the codebase. Instinctively, however, I think that this type of web development project is naturally suited to this paradigm and thus it requires careful consideration for other fields of programming that might not be as "testable", such as game development.
+
+## Reflection 2
+F (fast): I feel like the tests were simple enough to run as to not bog down the build/integration process. I (independent): tests do not rely on eachother and can be freely swapped, so I feel like I have implemented this. R (repeatable): tests contain no random generation, so by definition they are deterministic and therefore repeatable. T (timely) I made sure to write the tests before the implementations.
